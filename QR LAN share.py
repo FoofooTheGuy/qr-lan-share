@@ -8,6 +8,7 @@ import tkinter as tk
 import socketserver
 import urllib.parse
 import http.server
+import webbrowser
 import pathlib
 import atexit
 import qrcode
@@ -221,7 +222,8 @@ def resize_image(event):
     QRcode.config(image = photo)
     QRcode.image = photo #avoid garbage collection
 
-
+def github():
+    webbrowser.open('https://github.com/FoofooTheGuy/qr-lan-share')
 
 #https://www.geeksforgeeks.org/python-gui-tkinter/
 
@@ -229,7 +231,7 @@ menu = Menu(root)
 root.config(menu=menu)
 helpmenu = Menu(menu)
 menu.add_cascade(label='Help', menu=helpmenu)
-helpmenu.add_command(label='About')
+helpmenu.add_command(label='GitHub', command=github)
 helpmenu.add_separator()
 helpmenu.add_command(label='Exit', command=root.quit)
 
