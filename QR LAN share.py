@@ -1,7 +1,7 @@
 #!/bin/python
 
 # This script was thrown together by FoofooTheGuy
-# Rev 2
+# Version 0.1.3
 # https://github.com/FoofooTheGuy
 # All sources have been linked in a comment
 
@@ -30,7 +30,7 @@ IP_ADDRESS=''
 PORT='8000'
 CHOSEN_FILE=''
 DIRECTORY='QRLS_temp'
-RUNNING=0
+START_TEXT='Start server'
 
 #dir where we will put the files and start the server
 try:
@@ -102,7 +102,7 @@ def updateImage():
 
 #https://stackoverflow.com/a/74162322
 def tksleep(t):
-    'emulating time.sleep(seconds)'
+    #emulating time.sleep(seconds)
     ms = int(t)
     root = tk._get_default_root('sleep')
     var = tk.IntVar(root)
@@ -113,11 +113,11 @@ def handleServer():
     global IP_ADDRESS
     global PORT
     global DIRECTORY
-    global RUNNNING
+    global START_TEXT
 
     startButton.config(text = 'Server started')
     
-    tksleep(300)# wait for the gui to update ;-;
+    tksleep(200)# wait for the gui to update ;-;
     
     #https://stackoverflow.com/a/42763796
     try:
@@ -135,28 +135,25 @@ def handleServer():
         print('Closing server')
         httpd.shutdown()
         
+        
         img = Image.new('RGB', (1, 1), (255, 255, 255))
         img.save(DIRECTORY + '/ServerFileQRCode.png')
         
         updateImage()
         
-        RUNNING = 0
-        
-        startButton.config(text = 'Start server')
+        startButton.config(command = lambda: startServer(), text = START_TEXT)
 
 
 
 def startServer():
     global IP_ADDRESS
     global PORT
-    global RUNNING
+    global START_TEXT
     
-    if(RUNNING == 0):
-        startButton.config(text = 'Server starting...')
-    elif(RUNNING == 1):
-        return
+    #prevent button from being pressed twice
+    startButton.config(command = None, text = 'Server starting...')
     
-    RUNNING = 1
+    startButton.config()
     
     #get info so we can properly start the server
     getIP()
@@ -264,7 +261,7 @@ portEntry=Entry(root, validate="key", validatecommand=(validation, '%S'), justif
 portEntry.insert(END, PORT) # https://stackoverflow.com/a/20126024
 portEntry.pack()
 
-startButton = Button(root, text='Start Server', command=startServer)
+startButton = Button(root, text=START_TEXT, command=startServer)
 startButton.pack()
 
 #https://stackoverflow.com/a/36333014
