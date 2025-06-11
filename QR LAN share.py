@@ -1,7 +1,7 @@
 #!/bin/python
 
 # This script was thrown together by FoofooTheGuy
-# Rev 1
+# Rev 2
 # https://github.com/FoofooTheGuy
 # All sources have been linked in a comment
 
@@ -209,7 +209,8 @@ def setChosenFile(filename):
 
 
 def browseFiles():
-    filename = filedialog.askopenfilename()
+    #https://www.geeksforgeeks.org/file-explorer-in-python-using-tkinter/
+    filename = filedialog.askopenfilename(filetypes = (("CTR Importable Archive", "*.cia"), ("all files", "*.*")))
     setChosenFile(filename)
 
 
