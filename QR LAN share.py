@@ -1,6 +1,7 @@
 #!/bin/python
 
 # This script was thrown together by FoofooTheGuy
+# Rev 1
 # https://github.com/FoofooTheGuy
 # All sources have been linked in a comment
 
@@ -43,7 +44,7 @@ def exit_handler():
     try:
         shutil.rmtree(DIRECTORY)
     except:
-        print('no directory')
+        pass
 
 atexit.register(exit_handler)
 
@@ -120,7 +121,6 @@ def handleServer():
     
     #https://stackoverflow.com/a/42763796
     try:
-        RUNNING = 1
         #https://stackoverflow.com/a/52531444
         class Handler(http.server.SimpleHTTPRequestHandler):
             def __init__(self, *args, **kwargs):
@@ -156,10 +156,11 @@ def startServer():
     elif(RUNNING == 1):
         return
     
+    RUNNING = 1
+    
+    #get info so we can properly start the server
     getIP()
-    print(IP_ADDRESS)
     PORT = portEntry.get()
-    print(PORT)
     
     #https://www.geeksforgeeks.org/generate-qr-code-using-qrcode-in-python/
     # Creating an instance of QRCode class
@@ -175,15 +176,15 @@ def startServer():
     
     updateImage()
     
-    print('Starting server in 5 seconds...')
+    print('Starting server in 5...')
     tksleep(1000)
-    print('Starting server in 4 seconds...')
+    print('Starting server in 4...')
     tksleep(1000)
-    print('Starting server in 3 seconds...')
+    print('Starting server in 3...')
     tksleep(1000)
-    print('Starting server in 2 seconds...')
+    print('Starting server in 2...')
     tksleep(1000)
-    print('Starting server in 1 seconds...')
+    print('Starting server in 1...')
     tksleep(1000)
     handleServer()
     
@@ -222,8 +223,12 @@ def resize_image(event):
     QRcode.config(image = photo)
     QRcode.image = photo #avoid garbage collection
 
+
+
 def github():
     webbrowser.open('https://github.com/FoofooTheGuy/qr-lan-share')
+
+
 
 #https://www.geeksforgeeks.org/python-gui-tkinter/
 
