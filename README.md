@@ -8,9 +8,10 @@ This was created as a simpler alternative to [3dsend](https://github.com/MeatRee
 ![image](https://github.com/user-attachments/assets/24d7f114-4f12-4806-a289-6c32c9ad7499)
 
 ## Install dependencies
-1. Install python to run this script.
-2. Install [tkinterdnd2](https://pypi.org/project/tkinterdnd2/)
-3. Install [qrcode](https://pypi.org/project/qrcode/)
+1. Install [python](https://www.python.org/downloads/) to run this script.
+2. Install [qrcode](https://pypi.org/project/qrcode/)
+3. Install [pillow](https://pypi.org/project/pillow/)
+4. Install [tkinterdnd2](https://pypi.org/project/tkinterdnd2/)
 
 ## Navigating the GUI
 1. Click on "Browse" to choose a file, or drag and drop a file onto the button to select that file.
