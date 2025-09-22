@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python3
 
 # This script was thrown together by FoofooTheGuy
 # Version 0.1.3
