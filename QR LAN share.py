@@ -32,6 +32,7 @@ PORT='8000'
 CHOSEN_FILE=''
 DIRECTORY='QRLS_temp'
 START_TEXT='Start server'
+URL=''
 
 #dir where we will put the files and start the server
 try:
@@ -130,6 +131,7 @@ def handleServer():
         with socketserver.TCPServer((IP_ADDRESS, int(PORT)), Handler) as httpd:
             print('Do a Keyboard Interrupt (CTRL + C) to close the server')
             print('Server started at ' + IP_ADDRESS + ':' + PORT)
+            print('URL: ' + URL)
             httpd.serve_forever()
     except KeyboardInterrupt:# CTRL + C
         print()
@@ -151,6 +153,7 @@ def startServer():
     global PORT
     global START_TEXT
     global CHOSEN_FILE
+    global URL
     
     #prevent button from being pressed twice
     startButton.config(command = None, text = 'Server starting...')
@@ -166,7 +169,8 @@ def startServer():
     qr = qrcode.QRCode(version = 1, box_size = 1, border = 2, error_correction=qrcode.constants.ERROR_CORRECT_M)
 
     # Adding data to the instance 'qr'
-    qr.add_data('http://' + IP_ADDRESS + ':' + PORT + '/tmp' + pathlib.Path(CHOSEN_FILE).suffix)
+    URL = 'http://' + IP_ADDRESS + ':' + PORT + '/tmp' + pathlib.Path(CHOSEN_FILE).suffix
+    qr.add_data(URL)
 
     qr.make(fit = True)
     img = qr.make_image(fill_color = 'black', back_color = 'white')
