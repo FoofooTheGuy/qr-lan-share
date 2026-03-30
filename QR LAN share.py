@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # This script was thrown together by FoofooTheGuy
-# Version 0.1.3
+# Version 0.1.4
 # https://github.com/FoofooTheGuy
 # All sources have been linked in a comment
 
@@ -14,6 +14,7 @@ import pathlib
 import atexit
 import qrcode
 import shutil
+import glob
 import time
 import os
 
@@ -149,6 +150,7 @@ def startServer():
     global IP_ADDRESS
     global PORT
     global START_TEXT
+    global CHOSEN_FILE
     
     #prevent button from being pressed twice
     startButton.config(command = None, text = 'Server starting...')
@@ -164,7 +166,7 @@ def startServer():
     qr = qrcode.QRCode(version = 1, box_size = 1, border = 2, error_correction=qrcode.constants.ERROR_CORRECT_M)
 
     # Adding data to the instance 'qr'
-    qr.add_data('http://' + IP_ADDRESS + ':' + PORT + '/tmp.cia')
+    qr.add_data('http://' + IP_ADDRESS + ':' + PORT + '/tmp' + pathlib.Path(CHOSEN_FILE).suffix)
 
     qr.make(fit = True)
     img = qr.make_image(fill_color = 'black', back_color = 'white')
@@ -191,15 +193,14 @@ def setChosenFile(filename):
     global CHOSEN_FILE
     
     #delete old temp file
-    try:
-        pathlib.Path.unlink(DIRECTORY + '/tmp.cia')
-    except:
-        pass
+    files = glob.glob(DIRECTORY + '/*')
+    for f in files:
+       	os.remove(f)
     
     CHOSEN_FILE = filename.strip('{}')
     print(CHOSEN_FILE)
     #make a temporary copy of the file to our directory
-    shutil.copyfile(CHOSEN_FILE, DIRECTORY + '/tmp.cia')
+    shutil.copyfile(CHOSEN_FILE, DIRECTORY + '/tmp' + pathlib.Path(filename).suffix)
     #https://www.geeksforgeeks.org/how-to-change-the-tkinter-label-text/
     fileLabel.config(text = 'File: ' + CHOSEN_FILE)
 
