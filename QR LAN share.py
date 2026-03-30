@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # This script was thrown together by FoofooTheGuy
-# Version 0.1.4
+# Version 0.1.5
 # https://github.com/FoofooTheGuy
 # All sources have been linked in a comment
 
